@@ -1,29 +1,31 @@
 # notepack
 
-[![Build Status](https://travis-ci.org/darrachequesne/notepack.svg?branch=master)](https://travis-ci.org/darrachequesne/notepack)
-[![Coverage Status](https://coveralls.io/repos/github/darrachequesne/notepack/badge.svg?branch=master)](https://coveralls.io/github/darrachequesne/notepack?branch=master)
+[![Build Status](https://travis-ci.org/bitcomposer/notepack.svg?branch=master)](https://travis-ci.org/bitcomposer/notepack)
+[![Coverage Status](https://coveralls.io/repos/github/bitcomposer/notepack/badge.svg?branch=master)](https://coveralls.io/github/bitcomposer/notepack?branch=master)
 
 A fast [Node.js](http://nodejs.org) implementation of the latest [MessagePack](http://msgpack.org) [spec](https://github.com/msgpack/msgpack/blob/master/spec.md).
+Forked from [notepack.io](https://github.com/darrachequesne/notepack)
 
 ## Notes
 
-* This implementation is not backwards compatible with those that use the older spec. It is recommended that this library is only used in isolated systems.
-* `undefined` is encoded as `fixext 1 [0, 0]`, i.e. `<Buffer d4 00 00>`
-* `Date` objects are encoded as `fixext 8 [0, ms]`, e.g. `new Date('2000-06-13T00:00:00.000Z')` => `<Buffer d7 00 00 00 00 df b7 62 9c 00>`
-* `ArrayBuffer` are encoded as `ext 8/16/32 [0, data]`, e.g. `Uint8Array.of(1, 2, 3, 4)` => `<Buffer c7 04 00 01 02 03 04>`
+- This implementation is not backwards compatible with those that use the older spec. It is recommended that this library is only used in isolated systems.
+- `undefined` is encoded as `fixext 1 [0, 0]`, i.e. `<Buffer d4 00 00>`
+- `Date` objects are encoded as `fixext 8 [0, ms]`, e.g. `new Date('2000-06-13T00:00:00.000Z')` => `<Buffer d7 00 00 00 00 df b7 62 9c 00>`
+- `ArrayBuffer` are encoded as `ext 8/16/32 [0, data]`, e.g. `Uint8Array.of(1, 2, 3, 4)` => `<Buffer c7 04 00 01 02 03 04>`
+- `ObjectId` are encoded as
 
 ## Install
 
 ```
-npm install notepack.io
+npm install notepack.pcs
 ```
 
 ## Usage
 
 ```js
-var notepack = require('notepack.io');
+var notepack = require("notepack.pcs");
 
-var encoded = notepack.encode({ foo: 'bar'}); // <Buffer 81 a3 66 6f 6f a3 62 61 72>
+var encoded = notepack.encode({ foo: "bar" }); // <Buffer 81 a3 66 6f 6f a3 62 61 72>
 var decoded = notepack.decode(encoded); // { foo: 'bar' }
 ```
 
@@ -32,9 +34,9 @@ var decoded = notepack.decode(encoded); // { foo: 'bar' }
 A browser version of notepack is also available (2.0 kB minified/gzipped)
 
 ```html
-<script src="https://unpkg.com/notepack.io@2.3.0/dist/notepack.min.js"></script>
+<script src="https://unpkg.com/notepack.pcs@1.0.0/dist/notepack.min.js"></script>
 <script>
-  console.log(notepack.decode(notepack.encode([1, '2', new Date()])));
+  console.log(notepack.decode(notepack.encode([1, "2", new Date()])));
   // [1, "2", Thu Dec 08 2016 00:00:01 GMT+0100 (CET)]
 </script>
 ```
@@ -79,6 +81,7 @@ Decoding (this will take a while):
 +--------------------------+-------------------+-----------------+----------------+---------------+
 * Note that JSON is provided as an indicative comparison only
 ```
+
 ## License
 
 MIT

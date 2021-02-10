@@ -1,7 +1,7 @@
 {
-  "name": "notepack.io",
-  "version": "2.3.0",
-  "description": "A fast Node.js implementation of the latest MessagePack spec",
+  "name": "notepack.pcs",
+  "version": "1.0.0",
+  "description": "A fast Node.js implementation of the latest MessagePack spec forked from notepack.io",
   "main": "lib/index.js",
   "files": [
     "lib/",
@@ -10,14 +10,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/darrachequesne/notepack.git"
+    "url": "https://github.com/bitcomposer/notepack.git"
   },
   "author": "Damien Arrachequesne <damien.arrachequesne@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/darrachequesne/notepack/issues"
+    "url": "https://github.com/bitcomposer/notepack/issues"
   },
-  "homepage": "https://github.com/darrachequesne/notepack",
+  "homepage": "https://github.com/bitcomposer/notepack",
   "devDependencies": {
     "@msgpack/msgpack": "~1.12.0",
     "benchmark": "^2.1.2",
