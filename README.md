@@ -25,10 +25,10 @@ npm install @bitcomposer/notepack.io
 ## Usage
 
 ```js
-var notepack = require("@bitcomposer/notepack.io");
+const notepack = require("@bitcomposer/notepack.io");
 
-var encoded = notepack.encode({ foo: "bar" }); // <Buffer 81 a3 66 6f 6f a3 62 61 72>
-var decoded = notepack.decode(encoded); // { foo: 'bar' }
+const encoded = notepack.encode({ foo: "bar" }); // <Buffer 81 a3 66 6f 6f a3 62 61 72>
+const decoded = notepack.decode(encoded); // { foo: 'bar' }
 ```
 
 ## Browser

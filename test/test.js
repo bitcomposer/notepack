@@ -2,7 +2,7 @@
 
 const notepack = require('../');
 const expect = require('chai').expect;
-var ObjectId = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;
 
 function array(length) {
   const arr = new Array(length);
