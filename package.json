@@ -1,5 +1,5 @@
 {
-  "name": "notepack.pcs",
+  "name": "@bitcomposer/notepack.io",
   "version": "1.0.0",
   "description": "A fast Node.js implementation of the latest MessagePack spec forked from notepack.io",
   "main": "lib/index.js",

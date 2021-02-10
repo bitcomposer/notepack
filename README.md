@@ -19,13 +19,13 @@ Forked from [notepack.io](https://github.com/darrachequesne/notepack) as we need
 ## Install
 
 ```
-npm install notepack.pcs
+npm install @bitcomposer/notepack.io
 ```
 
 ## Usage
 
 ```js
-var notepack = require("notepack.pcs");
+var notepack = require("@bitcomposer/notepack.io");
 
 var encoded = notepack.encode({ foo: "bar" }); // <Buffer 81 a3 66 6f 6f a3 62 61 72>
 var decoded = notepack.decode(encoded); // { foo: 'bar' }
@@ -38,7 +38,7 @@ A browser version of notepack is also available (2.0 kB minified/gzipped)
 ObjectId has not been included due to the heavy dependencies.
 
 ```html
-<script src="https://unpkg.com/notepack.pcs@1.0.0/dist/notepack.min.js"></script>
+<script src="https://unpkg.com/@bitcomposer/notepack.io@1.0.0/dist/notepack.min.js"></script>
 <script>
   console.log(notepack.decode(notepack.encode([1, "2", new Date()])));
   // [1, "2", Thu Dec 08 2016 00:00:01 GMT+0100 (CET)]
