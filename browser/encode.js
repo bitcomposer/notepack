@@ -1,5 +1,7 @@
 'use strict';
 
+const MICRO_OPT_LEN = 32;
+
 function utf8Write(view, offset, str) {
   var c = 0;
   for (var i = 0, l = str.length; i < l; i++) {
@@ -206,6 +208,27 @@ function _encode(bytes, defers, value) {
         throw new Error('Buffer too large');
       }
       defers.push({ _bin: value, _length: length, _offset: bytes.length });
+      return size + length;
+    }
+
+    if (value instanceof RegExp) {
+      const regExpStr = value.toString();
+      if (regExpStr.length > MICRO_OPT_LEN) {
+        length = Buffer.byteLength(regExpStr);
+      } else {
+        length = utf8Length(regExpStr);
+      }
+
+      if (length < 0x100) { // str 8
+        bytes.push(0xe6, length);
+        size = 2;
+      } else if (length < 0x10000) { // str 16
+        bytes.push(0xe7, length >> 8, length);
+        size = 3;
+      }else {
+        throw new Error('RegExp too long');
+      }
+      defers.push({ str: regExpStr, length: length, offset: bytes.length });
       return size + length;
     }
 

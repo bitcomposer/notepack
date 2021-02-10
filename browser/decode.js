@@ -105,7 +105,7 @@ Decoder.prototype._parse = function () {
   }
 
   // negative fixint
-  if (prefix > 0xdf) {
+  if (prefix > 0xe7) {
     return (0xff - prefix + 1) * -1;
   }
 
@@ -264,6 +264,17 @@ Decoder.prototype._parse = function () {
       length = this._view.getUint32(this._offset);
       this._offset += 4;
       return this._map(length);
+    // RegExp
+    case 0xe6:
+      length = this.buffer.readUInt8(this.offset);
+      this.offset += 1;
+      const m1 = this.str(length).match(/\/(.*)\/(.*)?/) || [];
+      return new RegExp(m1[1], m1[2] || '');
+    case 0xe7:
+      length = this.buffer.readUInt16BE(this.offset);
+      this.offset += 2;
+      const m2 = this.str(length).match(/\/(.*)\/(.*)?/) || [];
+      return new RegExp(m2[1], m2[2] || '');
   }
 
   throw new Error('Could not parse');

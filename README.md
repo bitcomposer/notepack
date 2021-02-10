@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/bitcomposer/notepack/badge.svg?branch=master)](https://coveralls.io/github/bitcomposer/notepack?branch=master)
 
 A fast [Node.js](http://nodejs.org) implementation of the latest [MessagePack](http://msgpack.org) [spec](https://github.com/msgpack/msgpack/blob/master/spec.md).
-Forked from [notepack.io](https://github.com/darrachequesne/notepack)
+Forked from [notepack.io](https://github.com/darrachequesne/notepack) as we need to be able to transport RegExp and mongo ObjectId's between our Moleculer microservices.
 
 ## Notes
 
@@ -12,7 +12,9 @@ Forked from [notepack.io](https://github.com/darrachequesne/notepack)
 - `undefined` is encoded as `fixext 1 [0, 0]`, i.e. `<Buffer d4 00 00>`
 - `Date` objects are encoded as `fixext 8 [0, ms]`, e.g. `new Date('2000-06-13T00:00:00.000Z')` => `<Buffer d7 00 00 00 00 df b7 62 9c 00>`
 - `ArrayBuffer` are encoded as `ext 8/16/32 [0, data]`, e.g. `Uint8Array.of(1, 2, 3, 4)` => `<Buffer c7 04 00 01 02 03 04>`
-- `ObjectId` are encoded as
+- `ObjectId` are encoded as `string 8 [0, data]`, e.g. `new ObjectId('aaaaaaaaaaaaaaaaaaaaaaaa')` => `<Buffer e4 18 61 61 61 61 61 61 61 61 61 61 61 61>`
+- `RegExp` are encoded as `string 8 [0, data]`, e.g. `new RegExp('aaa')` => `<Buffer e4 05 2f 61 61 61 2f>`
+  or `string 16 [00, data]` => `<Buffer e5 01 02 2f ... 2f` (256 values in ...)
 
 ## Install
 
@@ -32,6 +34,8 @@ var decoded = notepack.decode(encoded); // { foo: 'bar' }
 ## Browser
 
 A browser version of notepack is also available (2.0 kB minified/gzipped)
+
+ObjectId has not been included due to the heavy dependencies.
 
 ```html
 <script src="https://unpkg.com/notepack.pcs@1.0.0/dist/notepack.min.js"></script>

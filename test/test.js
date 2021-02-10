@@ -2,6 +2,7 @@
 
 const notepack = require('../');
 const expect = require('chai').expect;
+var ObjectId = require('mongodb').ObjectId;
 
 function array(length) {
   const arr = new Array(length);
@@ -49,7 +50,7 @@ describe('notepack', function () {
   it('negative fixint', function () {
     check(-0x01, 'ff');
     check(-0x10, 'f0');
-    check(-0x20, 'e0');
+    check(-0x18, 'e8');
   });
 
   it('fixmap', function () {
@@ -275,6 +276,15 @@ describe('notepack', function () {
     const encoded = notepack.encode(map32);
     expect(encoded.toString('hex', 0, 5)).to.equal('df00010000');
     expect(notepack.decode(encoded)).to.deep.equal(map32);
+  });
+
+  it('regexp', function () {
+    check(new RegExp('abc.b'), 'e6072f6162632e622f');
+    check(new RegExp('a'.repeat(256)), 'e701022f' + '61'.repeat(256) + '2f');
+  });
+
+  it('objectid', function () {
+    check(new ObjectId('5fabf01fe918757d2c089fc0'), 'e418356661626630316665393138373537643263303839666330');
   });
 
   it('toJSON', function () {
